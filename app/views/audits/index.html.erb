@@ -1,0 +1,5 @@
+<ul>
+<% @entities.each do |name, entity| %>
+	<li><%= link_to l(entity[:label].to_sym), show_all_entity_path(:entity => name) %></li>
+<% end %>
+</ul>

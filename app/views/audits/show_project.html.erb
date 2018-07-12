@@ -1,0 +1,18 @@
+<h2><%=@project.name%></h2> 
+<% @result.each do |entry| %>
+	</h3><%=entry[:date].localtime.strftime("%F %T")%> - <%=entry[:user]%></h3>
+	<ul>
+	<% entry[:data].each do |e| %>
+		
+		<% if e.auditable_type == 'Project' %> 
+			<% e.audited_changes.each do |field, change| %>
+				<li><b><%=l(("field_"+field).to_sym, :default => field)%>: </b> <%=change[0]%> -> <%=change[1]%>
+			<% end %>
+		<% else %>
+			<% e.audited_changes.each do |a, change| %>
+				<li><b><%=l((e.auditable.custom_field.name).to_sym, :default => e.auditable.custom_field.name)%>: </b> <%=change[0]%> -> <%=change[1]%>
+			<% end %>
+		<% end %>
+	<% end %>
+	</ul>
+<% end %>
